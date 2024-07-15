@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  callegarin_giulio.api:
+    image: ${DOCKER_REGISTRY-}callegaringiulioapi
+    build:
+      context: .
+      dockerfile: Callegarin_Giulio.API/Dockerfile
