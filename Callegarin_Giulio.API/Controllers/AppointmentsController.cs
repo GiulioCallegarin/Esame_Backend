@@ -7,12 +7,18 @@ namespace Callegarin_Giulio.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AppointmentController : Controller
+    public class AppointmentsController : Controller
     {
         private readonly ISender sender;
-        public AppointmentController(ISender _sender)
+        public AppointmentsController(ISender _sender)
         {
             sender = _sender;
+        }
+
+        [HttpGet("")]
+        public async Task<ActionResult<IEnumerable<GetAppointmentResult>>> GetStudents()
+        {
+            return Ok(await sender.Send(new GetAllAllpointmentsQuery()));
         }
         [HttpPost("")]
         public async Task<ActionResult> CreateAppointment(CreateAppintentRequest appointment)
