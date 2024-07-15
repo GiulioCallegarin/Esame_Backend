@@ -3,8 +3,8 @@
 public class GetAppointmentResult
 {
     public Guid AppointmentId { get; set; }
-    public Guid StudentId { get; set; }
-    public Guid ProfessorId { get; set; }
+    public string StudentName { get; set; }
+    public string ProfessorName { get; set; }
     public DateOnly Date { get; set; }
     public TimeOnly Time { get; set; }
     public string Description { get; set; }

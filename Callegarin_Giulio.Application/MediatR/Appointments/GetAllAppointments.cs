@@ -19,16 +19,22 @@ internal class GetAllProfessorsQueryHandler : IRequestHandler<GetAllAllpointment
     public async Task<IEnumerable<GetAppointmentResult>> Handle(GetAllAllpointmentsQuery request, CancellationToken cancellationToken)
     {
         var appointments = await context.Appointments.ToListAsync(cancellationToken);
-        var result = appointments.Select(appointment => new GetAppointmentResult()
+        var result = new List<GetAppointmentResult>();
+        foreach (var appointment in appointments)
         {
-            AppointmentId = appointment.AppointmentId,
-            StudentId = appointment.StudentId,
-            ProfessorId = appointment.ProfessorId,
-            Date = appointment.Date,
-            Time = appointment.Time,
-            Description = appointment.Description,
-            Confirmed = appointment.Confirmed
-        });
+            var student = await context.Students.FindAsync(appointment.StudentId);
+            var professor = await context.Professors.FindAsync(appointment.ProfessorId);
+            result.Add(new GetAppointmentResult()
+            {
+                AppointmentId = appointment.AppointmentId,
+                StudentName = student.FirstName + " " + student.LastName,
+                ProfessorName = professor.FirstName + " " + professor.LastName,
+                Date = appointment.Date,
+                Time = appointment.Time,
+                Description = appointment.Description,
+                Confirmed = appointment.Confirmed
+            });
+        }
         return result;
     }
 }
