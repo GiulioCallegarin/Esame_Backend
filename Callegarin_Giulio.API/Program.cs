@@ -42,7 +42,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("MyPolicy");
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
